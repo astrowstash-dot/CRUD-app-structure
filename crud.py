@@ -22,6 +22,15 @@ def create_employee(db:Session, employee:schemas.EmployeeCreate):
     db.refresh(new_employee)
     return new_employee
 
+def update_employee(db:Session, emp_id: int, employee: schemas.EmployeeUpdate):
+    employee_update = db.query(models.Employee).filter(models.Employee.id==emp_id).first() # first we check if the emp exists
+    if employee_update:
+        employee_update.name = employee.name
+        employee_update.email = employee.email
+        db.commit()
+        db.refresh(employee_update)        
+    return (employee_update)
+
 
 
 
