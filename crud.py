@@ -31,7 +31,12 @@ def update_employee(db:Session, emp_id: int, employee: schemas.EmployeeUpdate):
         db.refresh(employee_update)        
     return (employee_update)
 
-
+def delete_employee(db: Session, emp_id: int):
+    emp_delete = db.query(models.Employee).filter(models.Employee.id==emp_id).first()
+    if emp_delete:
+        db.delete(emp_delete)
+        db.commit()
+    return emp_delete  
 
 
 
